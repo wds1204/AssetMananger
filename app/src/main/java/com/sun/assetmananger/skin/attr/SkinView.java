@@ -22,14 +22,9 @@ public class SkinView {
         this.attrs = attrs;
 
     }
-
-
-
     public void skin() {
         for (SkinAttr attr : attrs) {
             attr.skin(mView);
-
         }
-
     }
 }
