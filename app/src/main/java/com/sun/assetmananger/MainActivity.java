@@ -23,14 +23,11 @@ public class MainActivity extends BaseSkinActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Here, thisActivity is the current activity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                // Should we show an explanation?
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 //                            当某条权限之前已经请求过，并且用户已经拒绝了该权限时，shouldShowRequestPermissionRationale ()方法返回的是true
                 } else {
-//                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 200);
                 }
             }
@@ -38,18 +35,13 @@ public class MainActivity extends BaseSkinActivity {
 //            createOutPublicDir();
         }
 
-//        ImageView image = findViewById(R.id.image);
-//        Log.e("TAG", "image"+image);
-        //androidx.appcompat.widget.AppCompatImageView
 
-        //android.widget.ImageView
     }
 
     public void change(View view) {
-        String skinPath = Environment.getExternalStorageDirectory() + File.separator + "skin.skin";
+        String skinPath = Environment.getExternalStorageDirectory() + File.separator + "plugin.skin";
 
         //手机内部sdcard文件夹下,不要放在扩展的sdcard中.
-        Log.e("TAG", "skinPath==="+skinPath);
         SkinManager.getInstance().loadSkin(skinPath);
 
 

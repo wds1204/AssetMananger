@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.sun.assetmananger.config.SPUtil;
-import com.sun.assetmananger.config.SkinConfig;
 import com.sun.assetmananger.skin.attr.SkinView;
 
 import java.io.File;
@@ -131,15 +130,13 @@ public class SkinManager {
      */
     public void restoreDefault() {
         String currentSkinPath = SPUtil.getSkinPath(mContext);
-        Log.e("TAG", "currentSkinPath==="+currentSkinPath);
         if (TextUtils.isEmpty(currentSkinPath)) {
             return;
         }
-
+        clearSkinInfo();
         String path = mContext.getPackageResourcePath();
         initSkinResource(path);
         changeSkin(path);
-        clearSkinInfo();
     }
 
     /**
