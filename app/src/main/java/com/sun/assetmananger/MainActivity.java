@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.sun.assetmananger.skin.SkinManager;
+import com.sun.assetmananger.skin.SkinResource;
 
 import java.io.File;
 
@@ -55,5 +57,11 @@ public class MainActivity extends BaseSkinActivity {
     public void reset(View view) {
 
         SkinManager.getInstance().restoreDefault();
+    }
+
+    @Override
+    public void changeSkin(SkinResource resource) {
+        super.changeSkin(resource);
+        Toast.makeText(this, "换肤", Toast.LENGTH_SHORT).show();
     }
 }

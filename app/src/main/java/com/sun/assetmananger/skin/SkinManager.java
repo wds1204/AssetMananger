@@ -1,20 +1,19 @@
 package com.sun.assetmananger.skin;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.sun.assetmananger.config.SPUtil;
-import com.sun.assetmananger.config.SkinConfig;
+import com.sun.assetmananger.skin.callback.ISkinChangeListener;
+import com.sun.assetmananger.skin.config.SPUtil;
+import com.sun.assetmananger.skin.config.SkinConfig;
 import com.sun.assetmananger.skin.attr.SkinView;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Copyright (C), 2016-2019, 未来酒店
@@ -31,7 +30,7 @@ public class SkinManager {
         mInstance = new SkinManager();
     }
 
-    private Map<Activity, List<SkinView>> mSkinViews = new HashMap<>();
+    private Map<ISkinChangeListener, List<SkinView>> mSkinViews = new HashMap<>();
 
 
     private Context mContext;
@@ -58,7 +57,7 @@ public class SkinManager {
         initSkinResource(skinPath);
     }
 
-    public int loadSkin(String skinPath) {
+    public int loadSkin(final String skinPath) {
         //校验签名
         //初始化资源管理器
         File file = new File(skinPath);
@@ -94,18 +93,18 @@ public class SkinManager {
     }
 
 
-    public List<SkinView> getSkinViews(Activity activity) {
-        return mSkinViews.get(activity);
+    public List<SkinView> getSkinViews(ISkinChangeListener changeListener) {
+        return mSkinViews.get(changeListener);
     }
 
     /**
      * 注册
      *
      * @param skinViews
-     * @param activity
+     * @param changeListener
      */
-    public void registerSkinView(List<SkinView> skinViews, Activity activity) {
-        mSkinViews.put(activity, skinViews);
+    public void registerSkinView(List<SkinView> skinViews, ISkinChangeListener changeListener) {
+        mSkinViews.put(changeListener, skinViews);
 
     }
 
@@ -162,11 +161,13 @@ public class SkinManager {
      * @param path 当前皮肤的路径
      */
     private void changeSkin(String path) {
-        for (Activity activity : mSkinViews.keySet()) {
-            List<SkinView> skinViews = mSkinViews.get(activity);
+        for (ISkinChangeListener changeListener : mSkinViews.keySet()) {
+            List<SkinView> skinViews = mSkinViews.get(changeListener);
             for (SkinView skinView : skinViews) {
                 skinView.skin();
             }
+
+            changeListener.changeSkin(skinResource);
         }
     }
 }

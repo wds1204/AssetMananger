@@ -1,4 +1,4 @@
-package com.sun.assetmananger.config;
+package com.sun.assetmananger.skin.config;
 
 /**
  * Copyright (C), 2016-2019, 未来酒店

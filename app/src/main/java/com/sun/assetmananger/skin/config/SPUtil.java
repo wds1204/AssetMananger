@@ -1,11 +1,10 @@
-package com.sun.assetmananger.config;
+package com.sun.assetmananger.skin.config;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.channels.SelectionKey;
 import java.util.Map;
 
 /**

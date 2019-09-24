@@ -17,9 +17,11 @@ import androidx.core.view.LayoutInflaterCompat;
 import androidx.core.view.ViewCompat;
 
 import com.sun.assetmananger.skin.SkinManager;
+import com.sun.assetmananger.skin.SkinResource;
 import com.sun.assetmananger.skin.SkinSupport;
 import com.sun.assetmananger.skin.attr.SkinAttr;
 import com.sun.assetmananger.skin.attr.SkinView;
+import com.sun.assetmananger.skin.callback.ISkinChangeListener;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -33,7 +35,7 @@ import java.util.List;
  * Date: 2019-09-20 17:19
  * Description: 换肤BaseActivity
  */
-public class BaseSkinActivity extends AppCompatActivity {
+public abstract class BaseSkinActivity extends AppCompatActivity implements ISkinChangeListener {
     private static final String TAG = BaseSkinActivity.class.getName();
     private SkinCompatViewInflater skinCompatViewInflater = null;
     Window mWindow;
@@ -130,5 +132,10 @@ public class BaseSkinActivity extends AppCompatActivity {
             }
             parent = parent.getParent();
         }
+    }
+
+    @Override
+    public void changeSkin(SkinResource resource) {
+
     }
 }

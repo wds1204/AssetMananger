@@ -6,14 +6,10 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Environment;
 import android.util.Log;
 
-import com.sun.assetmananger.R;
 
-import java.io.File;
 import java.lang.reflect.Method;
 
 /**
@@ -70,5 +66,9 @@ public class SkinResource {
             return null;
         }
 
+    }
+
+    public Resources getmSkinResource() {
+        return mSkinResource;
     }
 }
