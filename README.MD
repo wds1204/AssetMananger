@@ -28,7 +28,7 @@ public class MainActivity extends BaseSkinActivity {
     }
  }
 ```
-**自定义View的特殊属性可在changeSkin回调方法方法自己实现换肤功能**
+如有特殊自定义View需要换肤，可在提高的changeSkin回调中自己实现换肤功能。
 
 
 
