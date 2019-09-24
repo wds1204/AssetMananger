@@ -2,10 +2,12 @@ package com.sun.assetmananger.skin;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.sun.assetmananger.config.SPUtil;
+import com.sun.assetmananger.config.SkinConfig;
 import com.sun.assetmananger.skin.attr.SkinView;
 
 import java.io.File;
@@ -42,7 +44,7 @@ public class SkinManager {
     public void init(Context context) {
         this.mContext = context.getApplicationContext();
         String skinPath = SPUtil.getSkinPath(mContext);
-        Log.e("TAG", "skinPath init"+skinPath);
+        Log.e("TAG", "skinPath init" + skinPath);
         if (TextUtils.isEmpty(skinPath)) {
             return;
         }
@@ -59,29 +61,36 @@ public class SkinManager {
     public int loadSkin(String skinPath) {
         //校验签名
         //初始化资源管理器
+        File file = new File(skinPath);
+        if (!file.exists()) {
+            return SkinConfig.SKIN_CHANGE_NOEXSIST;
+        }
+        String packageName = mContext.getPackageManager().getPackageArchiveInfo(skinPath, PackageManager.GET_ACTIVITIES).packageName;
+        if (TextUtils.isEmpty(packageName)) {
+            return SkinConfig.SKIN_CHANGE_ERROR;
+
+        }
+        String currentSkinPath = SPUtil.getSkinPath(mContext);
+        if (skinPath.equals(currentSkinPath)) {
+            return SkinConfig.SKIN_CHANGE_NOTHING;
+        }
 
         initSkinResource(skinPath);
-        Set<Activity> activities = mSkinViews.keySet();
-        Log.e("TAG", "mSkinViews"+mSkinViews);
-        for ( Activity key : activities) {
 
-            List<SkinView> skinViews = mSkinViews.get(key);
-            for (SkinView skinView : skinViews) {
-                skinView.skin();
-            }
-        }
+        changeSkin(skinPath);
         //保存皮肤状态
         savaSkinStatus(skinPath);
 
-        return 0;
+        return SkinConfig.SKIN_CHANGE_SUCCESS;
     }
 
     /**
      * 保存皮肤路径
+     *
      * @param skinPath
      */
     private void savaSkinStatus(String skinPath) {
-        SPUtil.saveSkinPath(mContext,skinPath);
+        SPUtil.saveSkinPath(mContext, skinPath);
     }
 
 
@@ -91,11 +100,12 @@ public class SkinManager {
 
     /**
      * 注册
+     *
      * @param skinViews
      * @param activity
      */
     public void registerSkinView(List<SkinView> skinViews, Activity activity) {
-        mSkinViews.put(activity,skinViews);
+        mSkinViews.put(activity, skinViews);
 
     }
 
@@ -105,13 +115,13 @@ public class SkinManager {
 
     public boolean needChangeSkin() {
         String skinPath = SPUtil.getSkinPath(mContext);
-        return skinPath!=null&&!TextUtils.isEmpty(skinPath)?true:false;
+        return skinPath != null && !TextUtils.isEmpty(skinPath) ? true : false;
     }
 
     public void changeSkin(SkinView skinView) {
-        String currentSkinPath=SPUtil.getSkinPath(mContext);
+        String currentSkinPath = SPUtil.getSkinPath(mContext);
 
-        if(!TextUtils.isEmpty(currentSkinPath)) {
+        if (!TextUtils.isEmpty(currentSkinPath)) {
             skinView.skin();
         }
     }

@@ -35,11 +35,8 @@ public class SkinSupport {
             String attributeName = attrs.getAttributeName(i);
             String attributeValue = attrs.getAttributeValue(i);
 
-            Log.e("TAG", "attributeName==="+attributeName);
-            Log.e("TAG", "attributeValue==="+attributeValue);
             SkinType skinType=getSkinType(attributeName);
             if(skinType!=null) {
-                Log.e("TAG", "skinType=="+skinType.getmResName());
                 //资源名称 目前vlaue @1112133
                 String resName=getResName(context,attributeValue);
                 if(TextUtils.isEmpty(resName)) {

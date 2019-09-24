@@ -149,22 +149,11 @@ public class SkinCompatViewInflater {
                 // later in this method.
                 view = createView(context, name, attrs);
         }
+        //&& originalContext != context
         if (view == null) {
             // If the original context does not equal our themed context, then we need to manually
             // inflate it using the name so that android:theme takes effect.
             view = createViewFromTag(context, name, attrs);
-        } else {
-            for (String prefix : sClassPrefixList) {
-                try {
-                    view = LayoutInflater.from(context).createView(name, prefix, attrs);
-                    if (view != null) {
-                        return view;
-                    }
-                } catch (ClassNotFoundException e) {
-                    // In this case we want to let the base class take a crack
-                    // at it.
-                }
-            }
         }
 
         if (view != null) {
