@@ -1,7 +1,7 @@
-###一键换肤
+#一键换肤
 
 
-*在Applocation中初始化*
+**在Applocation中初始化**
 ```java
 public class App extends Application {
     @Override
@@ -11,7 +11,7 @@ public class App extends Application {
     }
 }
 ```
-*所有页面继承BaseSkinActivity，换肤时传入需要加载的皮肤资源路径，注意读写权限申请：*
+**所有页面继承BaseSkinActivity，换肤时传入需要加载的皮肤资源路径，注意读写权限申请：**
 
 
 ```java
@@ -28,7 +28,7 @@ public class MainActivity extends BaseSkinActivity {
     }
  }
 ```
-#####自定义View的特殊属性可在changeSkin回调方法方法自己实现换肤功能
+**自定义View的特殊属性可在changeSkin回调方法方法自己实现换肤功能**
 
 
 
