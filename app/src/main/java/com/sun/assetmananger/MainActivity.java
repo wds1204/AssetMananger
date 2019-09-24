@@ -64,4 +64,9 @@ public class MainActivity extends BaseSkinActivity {
         super.changeSkin(resource);
         Toast.makeText(this, "换肤", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

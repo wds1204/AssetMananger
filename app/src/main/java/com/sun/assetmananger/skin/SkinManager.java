@@ -97,16 +97,6 @@ public class SkinManager {
         return mSkinViews.get(changeListener);
     }
 
-    /**
-     * 注册
-     *
-     * @param skinViews
-     * @param changeListener
-     */
-    public void registerSkinView(List<SkinView> skinViews, ISkinChangeListener changeListener) {
-        mSkinViews.put(changeListener, skinViews);
-
-    }
 
     public SkinResource getSkinResource() {
         return skinResource;
@@ -169,5 +159,25 @@ public class SkinManager {
 
             changeListener.changeSkin(skinResource);
         }
+    }
+
+    /**
+     * 移除回调，怕引起内存泄露
+     */
+    public void unregister(ISkinChangeListener skinChangeListener) {
+        mSkinViews.remove(skinChangeListener);
+    }
+
+
+
+    /**
+     * 注册
+     *
+     * @param skinViews
+     * @param changeListener
+     */
+    public void registerSkinView(List<SkinView> skinViews, ISkinChangeListener changeListener) {
+        mSkinViews.put(changeListener, skinViews);
+
     }
 }

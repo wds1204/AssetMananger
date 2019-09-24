@@ -138,4 +138,10 @@ public abstract class BaseSkinActivity extends AppCompatActivity implements ISki
     public void changeSkin(SkinResource resource) {
 
     }
+
+    @Override
+    protected void onDestroy() {
+        SkinManager.getInstance().unregister(this);
+        super.onDestroy();
+    }
 }
